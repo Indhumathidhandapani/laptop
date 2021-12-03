@@ -92,6 +92,8 @@
         };
         $scope.delete = function(lap) {
             laptopServices.delete({id: lap._id}, function (err, res) {
+                $scope.success = true;
+                $scope.successMsg = "Successfully deleted the laptop infomation";
 
     })
     }
