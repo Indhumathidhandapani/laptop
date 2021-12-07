@@ -55,7 +55,10 @@
         $scope.firstPage = function () {
             $scope.page.currentPage = 0;
         }
-
+        $scope.loadInfo = function (info) {
+            $scope.update = JSON.parse(JSON.stringify(info));
+            $scope.model = info.model;
+        };
         $scope.add = function () {
             var form = document.getElementById('addlaptop');
             var check = form.checkValidity();
@@ -90,6 +93,40 @@
                 bootstrapError.showErrors('addlaptop')
             }
         };
+        $scope.load=function(lap)
+        {
+            $scope.incharge._id=lap._id;
+            $scope.incharge.picture = (lap.picture);
+            $scope.incharge.model = (lap.model);
+            $scope.incharge.screensize= (lap.screensize);
+            $scope.incharge.price=(lap.price);
+            $scope.incharge.ram=(lap.ram);
+            $scope.incharge.warrenty=(lap.warrenty);
+            $scope.incharge.manufacturing_date=(lap.manufacturing_date);
+            $scope.incharge.cpu=(lap.cpu);   
+            $scope.incharge.battery=(lap.battery);         
+            $scope.incharge.colours=(lap.colours);
+
+                
+                
+        }
+        $scope.update = function() {
+            
+                laptopServices.updatelaptop($scope.incharge, function (err, res) {
+                    getlaptop();
+                                        $("html").stop().animate({ scrollTop: 0 }, 200);
+                        $scope.success = true;
+                        $scope.successMsg = "Successfully Updated";
+                        $('#update_laptop').modal("hide");
+                        $timeout(function () {
+                            $scope.success = false;
+                            $scope.successMsg = "";
+                        }, 2000);
+                       
+                   
+                    })
+            
+        }
         $scope.delete = function(lap) {
             laptopServices.delete({id: lap._id}, function (err, res) {
                 $scope.success = true;
@@ -109,6 +146,20 @@
             var request = {
                 url: "laptop/getLaptopDetails",
                 method: 'GET',
+                timeout: 2 * 60 * 1000,
+                headers: { 'Content-type': 'application/json' }
+            };
+            $http(request).then(function (response) {
+                callback(null, response.data);
+            }, function (error) {
+                callback(error, null);
+            });
+        };
+        this.updatelaptop = function (details, callback) {
+            var request = {
+                url: "laptop/updatelaptop",
+                method: 'POST',
+                data: details,
                 timeout: 2 * 60 * 1000,
                 headers: { 'Content-type': 'application/json' }
             };

@@ -31,6 +31,19 @@ router.post('/addlaptop', function (req, res, next) {
     });
    
 });
+router.post('/updatelaptop', function (req, res, next) {
+    laptopServices.updateLaptop(req.body,function (err, response) {
+        if (!err) {
+            appLogger.info("laptop details successfully updated");
+            res.send(response);
+        }
+        else {
+            appLogger.error({ err: err }, "Error while updating laptop details");
+            res.status(500).send({ error: err.name, message: err.message });
+        }
+    });
+   
+});
 router.delete('/deleteLaptop', function (req, res, next) {
     laptopServices.deleteLaptop(req.body.id,function (err, response) {
         if (!err) {
