@@ -62,10 +62,16 @@
                 if(!err)
                 {
                     $scope.values =res;
-                      
+                    $scope.showAll=false;
+                    $scope.showBrandTable = true;  
                 }
 
             });
+        }
+        $scope.show =function(){
+            
+            $scope.showBrandTable = false;  
+                     $scope.showAll = true;  
         }
         $scope.add = function () {
             var form = document.getElementById('addlaptop');
