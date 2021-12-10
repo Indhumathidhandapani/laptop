@@ -21,6 +21,7 @@
             laptopServices.getlaptop(function (err, res) {
                 if (!err) {
                     $scope.laptop = res;
+                    $scope.showAll = true;  
                 }
             });
         }
