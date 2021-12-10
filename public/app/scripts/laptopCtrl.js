@@ -20,19 +20,16 @@
         function getlaptop() {
             laptopServices.getlaptop(function (err, res) {
                 if (!err) {
-                    $scope.laptop = res.sort(function (a, b) {
-                        return ;
-                    });
-
+                    $scope.laptop = res;
                 }
             });
         }
        
         getlaptop();
-        $scope.getData = function () {
-            var filterData = $filter('filter')($scope.laptop, $scope.page.q);
-            return filterData
-        }
+        // $scope.getData = function () {
+        //     var filterData = $filter('filter')($scope.laptop, $scope.page.q);
+        //     return filterData
+        // }
         $scope.numberOfPages = function () {
             var data = $scope.getData();
             return Math.ceil(data.length / $scope.page.pageSize);
@@ -59,6 +56,17 @@
             $scope.update = JSON.parse(JSON.stringify(info));
             $scope.model = info.model;
         };
+        $scope.brand =function(){
+           var query={groupby:"model"}
+            laptopServices.aggregate(query,function(err,res){
+                if(!err)
+                {
+                    $scope.values =res;
+                      
+                }
+
+            });
+        }
         $scope.add = function () {
             var form = document.getElementById('addlaptop');
             var check = form.checkValidity();
@@ -113,8 +121,10 @@
         $scope.update = function() {
             
                 laptopServices.updatelaptop($scope.incharge, function (err, res) {
+                    if(!err)
+                    {
                     getlaptop();
-                                        $("html").stop().animate({ scrollTop: 0 }, 200);
+                        $("html").stop().animate({ scrollTop: 0 }, 200);
                         $scope.success = true;
                         $scope.successMsg = "Successfully Updated";
                         $('#update_laptop').modal("hide");
@@ -123,15 +133,24 @@
                             $scope.successMsg = "";
                         }, 2000);
                        
+                    }
                    
                     })
             
         }
         $scope.delete = function(lap) {
             laptopServices.delete({id: lap._id}, function (err, res) {
+                if(!err)
+                {
                 $scope.success = true;
                 $scope.successMsg = "Successfully deleted the laptop infomation";
-
+                getlaptop();
+                $timeout(function () {
+                    $scope.success = false;
+                    $scope.successMsg = "";
+                }, 2000);
+               
+                }
     })
     }
 }
@@ -187,6 +206,20 @@
             var request = {
                 url: "laptop/deletelaptop",
                 method: 'DELETE',
+                data: details,
+                timeout: 2 * 60 * 1000,
+                headers: { 'Content-type': 'application/json' }
+            };
+            $http(request).then(function (response) {
+                callback(null, response.data);
+            }, function (error) {
+                callback(error, null);
+            });
+        };
+        this.aggregate = function (details, callback) {
+            var request = {
+                url: "laptop/brandlaptop",
+                method: 'POST',
                 data: details,
                 timeout: 2 * 60 * 1000,
                 headers: { 'Content-type': 'application/json' }

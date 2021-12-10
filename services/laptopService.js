@@ -32,8 +32,22 @@ function updateLaptop(data, callback) {
     };
     laptopDao.update(query, detailsToUpdate, callback);
 }
+function aggregate(filterQuery, callback) {
+    let arr=[];
 
+    if (filterQuery.groupby) {
+        arr.push({
+            $group: {
+                _id: "$" + filterQuery.groupby,
+                count: { $sum: 1 }
+            }
+        })
+    }
+
+    laptopDao.aggregate(arr, callback);
+}
 module.exports.getLaptopDetails = getLaptopDetails;
 module.exports.addLaptop = addLaptop;
 module.exports.deleteLaptop=deleteLaptop;
 module.exports.updateLaptop=updateLaptop;
+module.exports.aggregate=aggregate;

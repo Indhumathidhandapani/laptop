@@ -44,6 +44,19 @@ router.post('/updatelaptop', function (req, res, next) {
     });
    
 });
+router.post('/brandlaptop', function (req, res, next) {
+    laptopServices.aggregate(req.body,function (err, response) {
+        if (!err) {
+            appLogger.info("success");
+            res.send(response);
+        }
+        else {
+            appLogger.error({ err: err }, "Error while display laptop brands");
+            res.status(500).send({ error: err.name, message: err.message });
+        }
+    });
+   
+});
 router.delete('/deleteLaptop', function (req, res, next) {
     laptopServices.deleteLaptop(req.body.id,function (err, response) {
         if (!err) {

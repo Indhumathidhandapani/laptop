@@ -35,7 +35,21 @@ function getAll(callback) {
         }
     });
 }
-
+function aggregate(pipeStages, options, callback) {
+    if (typeof options == "function") {
+        callback = options;
+        options = null;
+    }
+    var db = mongodb.getDb();
+    var coll = db.collection(this.getCollectionName());
+    coll.aggregate(pipeStages, options).toArray(function (err, result) {
+        if (!err) {
+            callback(null, result);
+        } else {
+            callback(err, null);
+        }
+    });
+}
 function getById(id, callback) {
     var db = mongodb.getDb();
     var coll = db.collection(this.getCollectionName());
@@ -332,6 +346,7 @@ module.exports = function BaseDao(collectionName) {
         removeItemInArrayByQuery: removeItemInArrayByQuery,
         distinctByQuery : distinctByQuery,
         remove: remove,
+        aggregate:aggregate,
         removeByQuery: removeByQuery,
         removeItemInArrayById: removeItemInArrayById,
         bulkWrite: bulkWrite,
