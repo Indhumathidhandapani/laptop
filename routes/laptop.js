@@ -5,7 +5,7 @@ var appLogger = require('../logging/appLogger');
 
 //routes
 
-router.get('/getLaptopDetails', function (req, res, next) {
+router.get('/', function (req, res, next) {
     laptopServices.getLaptopDetails(function (err, details) {
         if (!err) {
             appLogger.info("laptop details retrived");
@@ -18,7 +18,7 @@ router.get('/getLaptopDetails', function (req, res, next) {
     });
 });
 
-router.post('/addlaptop', function (req, res, next) {
+router.post('/', function (req, res, next) {
     laptopServices.addLaptop(req.body,function (err, response) {
         if (!err) {
             appLogger.info("laptop details successfully saved");
@@ -31,7 +31,7 @@ router.post('/addlaptop', function (req, res, next) {
     });
    
 });
-router.post('/updatelaptop', function (req, res, next) {
+router.put('/', function (req, res, next) {
     laptopServices.updateLaptop(req.body,function (err, response) {
         if (!err) {
             appLogger.info("laptop details successfully updated");
@@ -44,7 +44,7 @@ router.post('/updatelaptop', function (req, res, next) {
     });
    
 });
-router.post('/brandlaptop', function (req, res, next) {
+router.post('/aggregatebrands', function (req, res, next) {
     laptopServices.aggregate(req.body,function (err, response) {
         if (!err) {
             appLogger.info("success");
@@ -57,7 +57,7 @@ router.post('/brandlaptop', function (req, res, next) {
     });
    
 });
-router.delete('/deleteLaptop', function (req, res, next) {
+router.delete('/', function (req, res, next) {
     laptopServices.deleteLaptop(req.body.id,function (err, response) {
         if (!err) {
             appLogger.info("user details successfully deleted");

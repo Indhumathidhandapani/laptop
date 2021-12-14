@@ -5,20 +5,25 @@
 <section class="content">
     <div class="element-wrapper">
         <h1 class="element-title">Laptop details</h1>
-        <div class="element-actions" >
+        <div class="element-actions">
             <!-- <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#show_laptop" ng-click="hideErrors('showlaptop')">
                 <i class="fas fa-plus mr-1"></i> 
             show all laptops</button> -->
-            <button class="btn btn-sm btn-success"  data-target="#brand_laptop" ng-click="brand()">
-                    <!-- <i class="fas fa-plus mr-1"></i> -->
-            Brand</button>
-            <button class="btn btn-sm btn-success"  data-target="#show_laptop" ng-click="show()">
+            <button class="btn btn-sm btn-success" data-target="#brand_laptop" ng-click="brand()">
                 <!-- <i class="fas fa-plus mr-1"></i> -->
-        Show all details</button>
+                Brand
+            </button>
+            <button class="btn btn-sm btn-success" data-target="#show_laptop" ng-click="show()">
+               
+                <!-- <i class="fas fa-plus mr-1"></i> -->
+                Show all details
+
+            </button>
             <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#add_laptop" ng-click="addlaptop">
-                    <!-- <i class="fas fa-plus mr-1"></i> -->
-            ADD Laptop details</button>
-            
+                <!-- <i class="fas fa-plus mr-1"></i> -->
+                ADD Laptop details
+            </button>
+
         </div>
     </div>
     <div ng-if="error" id="error" class="alert alert-danger alert-white rounded">
@@ -46,7 +51,8 @@
                     <div class="col-md-9"> </div>
                     <div class="col-md-3 mt-2 mt-md-0 text-right">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" ng-model="page.searchBox" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" ng-model="page.searchBox" placeholder="Search"
+                                aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-gray-grad" type="button">
                                     <i class="fas fa-search mr-0"></i>
@@ -59,51 +65,54 @@
         </div>
         <div class="card-body-padded" id="show_laptop">
             <form id="showlaptop">
-            <div class="table-container">
-                <table class="table table-padded">
-                    <thead>
-                        <tr>
-                            <th>picture</th>
-                            <th>Brand</th>
-                            <th>screensize</th>
-                            <th>price</th>
-                            <th>ram</th>
-                            <th>warrenty</th>
-                            <th>Manufacturing date</th>
-                            <th>Processor</th>
-                            <th>Battery</th>
-                            <th>Colours</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="lap in laptop | filter:page.searchBox | startFrom: page.currentPage*page.pageSize | limitTo:page.pageSize">
-                            <td data-title="picture">{{lap.picture}}</td>
-                            <td data-title="Model">{{lap.model}}</td>
-                            <td data-title="size">{{lap.screensize}}</td>
-                            <td data-title="price">{{lap.price}}</td>
-                            <td data-title="RAM size">{{lap.ram}}</td>
-                            <td data-title="warrenty">{{lap.warrenty}}</td>
-                            <td data-title="Manufacturing Date">{{lap.manufacturing_date}}</td>
-                            <td data-title="CPU">{{lap.cpu}}</td>
-                            <td data-title="Battery life">{{lap.battery}}</td>
-                            <td data-title="colours">{{lap.colours}}</td>
-                            <td data-title="Action" class="action-btn px-0">
-                                <button type="button" data-toggle="modal" data-target="#update_laptop" ng-click="load(lap)" >
-                                <a class="btn btn-primary-2 rounded-0 py-0" >
-                                    <i class="fas fa-edit mr-1"></i> Edit
-                                </a>
-                            </button>
-                                <button type="button" ng-click="delete(lap)">
-                                <a class="btn btn-danger rounded-0 py-0" >
-                                    <i class="fas fa-trash-alt mr-1"></i> Delete
-                                </a>
-                            </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="table-container">
+                    <table class="table table-padded">
+                        <thead>
+                            <tr>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>screensize(in inch)</th>
+                                <th>price(in Rupees)</th>
+                                <th>ram(in GB)</th>
+                                <th>warrenty(in Year)</th>
+                                <th>Manufacturing date</th>
+                                <th>Processor</th>
+                                <th>Battery(mAh)</th>
+                                <th>Colours</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                ng-repeat="lap in laptop | filter:page.searchBox | startFrom: page.currentPage*page.pageSize | limitTo:page.pageSize">
+                                <td data-title="Brand">{{lap.brandname}}</td>
+                                <td data-title="Model">{{lap.model}}</td>
+                                <td data-title="size">{{lap.screensize}}</td>
+                                <td data-title="price">{{lap.price}}</td>
+                                <td data-title="RAM size">{{lap.ram}}</td>
+                                <td data-title="warrenty">{{lap.warrenty}}</td>
+                                <td data-title="Manufacturing Date">{{lap.manufacturing_date}}</td>
+                                <td data-title="CPU">{{lap.cpu}}</td>
+                                <td data-title="Battery life">{{lap.battery}}</td>
+                                <td data-title="colours">{{lap.colours}}</td>
+                             
+                                <td data-title="Action" class="action-btn px-0">
+                                    <button type="button" data-toggle="modal" data-target="#update_laptop"
+                                        ng-click="load(lap)">
+                                        <a class="btn btn-primary-2 rounded-0 py-0">
+                                            <i class="fas fa-edit mr-1"></i> Edit
+                                        </a>
+                                    </button>
+                                    <button type="button" ng-click="delete(lap)">
+                                        <a class="btn btn-danger rounded-0 py-0">
+                                            <i class="fas fa-trash-alt mr-1"></i> Delete
+                                        </a>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
         </div>
         <div ng-if="laptop" class="standard-table-footer">
             <div class="row">
@@ -127,16 +136,19 @@
                     </button>
                     <span class="span-box">{{currentPage+1}}</span>
                     <span class="span-count">of {{numberOfPages()}}</span>
-                    <button class="arrow-btn" ng-disabled="page.currentPage >= getData().length/page.pageSize - 1" ng-click="nextPage()">
+                    <button class="arrow-btn" ng-disabled="page.currentPage >= getData().length/page.pageSize - 1"
+                        ng-click="nextPage()">
                         <i class="fas fa-angle-right"></i>
                     </button>
-                    <button class="arrow-btn" ng-disabled="page.currentPage == Math.ceil(getData().length/page.pageSize) - 1" ng-click="lastPage()">
+                    <button class="arrow-btn"
+                        ng-disabled="page.currentPage == Math.ceil(getData().length/page.pageSize) - 1"
+                        ng-click="lastPage()">
                         <i class="fas fa-angle-double-right"></i>
                     </button>
                 </div>
             </div>
         </div>
-    </form>
+        </form>
     </div>
 
 </section>
@@ -155,24 +167,44 @@
             <div class="table-container">
                 <table class="table table-padded" >
                     <thead> -->
-                        <div class="card mb-0 pb-0" ng-if="showBrandTable">
-                        <div class="card-body-padded" >
-                            <form id="brandlaptop">
-                            <div class="table-container">
-                                <table class="table table-padded">
-                                    <thead>
-                                       
-                                     
+<div class="card mb-0 pb-0" ng-if="showBrandTable">
+    <div class="standard-table-header">
+        <div class="standard-table-filter border-bottom-0">
+            <div class="row">
+                <div class="col-md-9"> </div>
+                <div class="col-md-3 mt-2 mt-md-0 text-right">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" ng-model="page.searchBox" placeholder="Search"
+                            aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-gray-grad" type="button">
+                                <i class="fas fa-search mr-0"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body-padded">
+        <form id="brandlaptop">
+            <div class="table-container">
+                <table class="table table-padded">
+                    <thead>
+
+
                         <tr>
                             <th>Brand</th>
                             <th>Count</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="v in values | filter:page.searchBox | startFrom: page.currentPage*page.pageSize | limitTo:page.pageSize">
+                        <tr
+                            ng-repeat="v in values | filter:page.searchBox | startFrom: page.currentPage*page.pageSize | limitTo:page.pageSize">
                             <td data-title="Brand">{{v._id}}</td>
                             <td data-title="Count">{{v.count}}</td>
-                           
+
                             </td>
                         </tr>
                     </tbody>
@@ -180,8 +212,9 @@
             </div>
         </form>
     </div>
-    </div>
-                    <!-- <div class="row">
+</div>
+
+<!-- <div class="row">
                         <div class="form-group col-sm-6 mb-2">
                             <label>Brand</label>
                             <input class="form-control" type="text" ng-model="values._id" required>
@@ -192,13 +225,14 @@
                         </div>
                         </div>
                     </div> -->
-        <!-- </div>
+<!-- </div>
     </div>
 </div> -->
 <!-- Brand End Modal -->
 
 <!-- ADD Modal -->
-<div class="modal fade " id="add_laptop" tabindex="-1" role="dialog" aria-labelledby="add_laptop_modal" aria-hidden="true">
+<div class="modal fade " id="add_laptop" tabindex="-1" role="dialog" aria-labelledby="add_laptop_modal"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -211,111 +245,120 @@
                 <form id="addlaptop">
                     <div class="row">
                         <div class="form-group col-sm-6 mb-2">
-                            <label>Picture</label>
-                            <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.picture" required>
-                            <div class="invalid-feedback">
-                                please upload picture
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6 mb-2">
                             <label>Brand</label>
-                            <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.model" required>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.brandname" required>
                             <div class="invalid-feedback">
                                 please enter brand name
                             </div>
                         </div>
 
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>Model</label>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.model" required>
+                            <div class="invalid-feedback">
+                                please enter model name
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6 mb-2">
-                            <label>screen size</label>
-                            <input class="form-control" type="number" style="text-transform:uppercase" ng-model="incharge.screensize" required>
+                            <label>screen size(in inch)</label>
+                            <input class="form-control" type="number" style="text-transform:uppercase"
+                                ng-model="incharge.screensize" required>
                             <div class="invalid-feedback">
                                 please enter screen size
                             </div>
                         </div>
                         <div class="form-group col-sm-6 mb-2">
-                            <label>price</label>
+                            <label>price(in Rupees)</label>
                             <input class="form-control" type="number" ng-model="incharge.price" required>
                             <div class="invalid-feedback">
                                 please enter price
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
-                        
+
                         <div class="form-group col-sm-6 mb-2">
-                            <label>RAM size</label>
-                            <input class="form-control" type="number" style="text-transform:uppercase" ng-model="incharge.ram" required>
+                            <label>RAM size(in GB)</label>
+                            <input class="form-control" type="number" style="text-transform:uppercase"
+                                ng-model="incharge.ram" required>
                             <div class="invalid-feedback">
                                 please enter RAM size
                             </div>
                         </div>
                         <div class="form-group col-sm-6 mb-2">
-                            <label>warrenty</label>
-                            <input class="form-control" type="number" style="text-transform:uppercase" ng-model="incharge.warrenty" required>
+                            <label>warrenty(in Year)</label>
+                            <input class="form-control" type="number" style="text-transform:uppercase"
+                                ng-model="incharge.warrenty" required>
                             <div class="invalid-feedback">
                                 please enter warrenty period
                             </div>
                         </div>
-                        </div>
-                        <div class="row">
-                            <!-- <label class="my-0">Manufacturing Date</label>
+                    </div>
+                    <div class="row">
+                        <!-- <label class="my-0">Manufacturing Date</label>
                                         <div class="column">
                                             <input class="form-control form-control-sm" type="text" id="examDate" name="examDate" placeholder="Choose Date" ng-flatpickr
                                                 fp-opts="startDate" ng-model="criteria.endDateWithoutFine">
                                             <span class="calender-caret" ng-model="criteria.endDateWithoutFine"></span>
                                         </div> -->
-                            <!-- <div class="form-group col-sm-6 mb-2">
+                        <!-- <div class="form-group col-sm-6 mb-2">
                                 <label>Manufacturing date</label>
                                 <input class="form-control" type="date" style="text-transform:uppercase" ng-model="incharge.manufacturing_date" required>
                                 <div class="invalid-feedback">
                                     please enter Manufacturing date
                                 </div> -->
-                                <div class="form-group col-sm-6 mb-2">
-                                <label>Manufacturing date</label>
-                                <input class="form-control form-control-sm" type="text" style="text-transform:uppercase" ng-model="incharge.manufacturing_date" ng-flatpickr
-                                fp-opts="startDate" required>
-                                <div class="invalid-feedback">
-                                    please enter Manufacturing date
-                                    <span class="calender-caret"></span>
-                                </div> 
-                            </div>
-                            <div class="form-group col-sm-6 mb-2">
-                                <label>Processor</label>
-                                <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.cpu" required>
-                                <div class="invalid-feedback">
-                                    please enter CPU
-                                </div>
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>Manufacturing date</label>
+                            <input class="form-control form-control-sm" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.manufacturing_date" ng-flatpickr fp-opts="startDate" required>
+                            <div class="invalid-feedback">
+                                please enter Manufacturing date
+                                <span class="calender-caret"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            
-                           
-                            <div class="form-group col-sm-6 mb-2">
-                                <label>Battery</label>
-                                <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.battery" required>
-                                <div class="invalid-feedback">
-                                    please enter Battery
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-6 mb-2">
-                                <label>colours</label>
-                                <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.colours" required>
-                                <div class="invalid-feedback">
-                                    please enter Colours
-                                </div>
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>Processor</label>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.cpu" required>
+                            <div class="invalid-feedback">
+                                please enter CPU
                             </div>
                         </div>
-    
-    
+                    </div>
+                    <div class="row">
+
+
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>Battery(in mAh)</label>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.battery" required>
+                            <div class="invalid-feedback">
+                                please enter Battery
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>colours</label>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.colours" required>
+                            <div class="invalid-feedback">
+                                please enter Colours
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" ng-click="closeModal('add_laptop','addlaptop')">Close</button>
+                <button type="button" class="btn btn-secondary"
+                    ng-click="closeModal('add_laptop','addlaptop')">Close</button>
                 <button type="button" class="btn btn-primary" ng-click="add()">
                     <i class="fas fa-save mr-2"></i>Add
                 </button>
@@ -325,12 +368,14 @@
 </div>
 <!-- End Modal -->
 <!-- Update Modal -->
-<div class="modal fade " id="update_laptop" tabindex="-1" role="dialog" aria-labelledby="update_laptop_modal" aria-hidden="true">
+<div class="modal fade " id="update_laptop" tabindex="-1" role="dialog" aria-labelledby="update_laptop_modal"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title" id="update_laptop_modal">Update laptop details</h6>
-                <button type="button" class="close" aria-label="Close" ng-click="closeModal('update_laptop','updatelaptop')">
+                <button type="button" class="close" aria-label="Close"
+                    ng-click="closeModal('update_laptop','updatelaptop')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -338,16 +383,18 @@
                 <form id="updatelaptop">
                     <div class="row">
                         <div class="form-group col-sm-6 mb-2">
-                            <label>Picture</label>
-                            <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.picture" required>
+                            <label>Brand</label>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.brandname" required>
                             <div class="invalid-feedback">
-                                please upload picture
+                                please enter brand name
                             </div>
                         </div>
 
                         <div class="form-group col-sm-6 mb-2">
                             <label>Model</label>
-                            <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.model" required>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.model" required>
                             <div class="invalid-feedback">
                                 please enter model
                             </div>
@@ -356,8 +403,9 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6 mb-2">
-                            <label>screen size</label>
-                            <input class="form-control" type="number" style="text-transform:uppercase" ng-model="incharge.screensize" required>
+                            <label>screen size(in inch)</label>
+                            <input class="form-control" type="number" style="text-transform:uppercase"
+                                ng-model="incharge.screensize" required>
                             <div class="invalid-feedback">
                                 please enter screen size
                             </div>
@@ -369,75 +417,81 @@
                                 please enter price
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
-                        
+
                         <div class="form-group col-sm-6 mb-2">
-                            <label>RAM size</label>
-                            <input class="form-control" type="number" style="text-transform:uppercase" ng-model="incharge.ram" required>
+                            <label>RAM size(in GB)</label>
+                            <input class="form-control" type="number" style="text-transform:uppercase"
+                                ng-model="incharge.ram" required>
                             <div class="invalid-feedback">
                                 please enter RAM size
                             </div>
                         </div>
                         <div class="form-group col-sm-6 mb-2">
-                            <label>warrenty</label>
-                            <input class="form-control" type="number" style="text-transform:uppercase" ng-model="incharge.warrenty" required>
+                            <label>warrenty(in Year)</label>
+                            <input class="form-control" type="number" style="text-transform:uppercase"
+                                ng-model="incharge.warrenty" required>
                             <div class="invalid-feedback">
                                 please enter warrenty period
                             </div>
                         </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6 mb-2">
-                                <label>Manufacturing date</label>
-                                <input class="form-control form-control-sm" type="text" style="text-transform:uppercase" ng-model="incharge.manufacturing_date" ng-flatpickr
-                                fp-opts="startDate" required>
-                                <div class="invalid-feedback">
-                                    please enter Manufacturing date
-                                    <span class="calender-caret"></span>
-                                </div> 
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>Manufacturing date</label>
+                            <input class="form-control form-control-sm" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.manufacturing_date" ng-flatpickr fp-opts="startDate" required>
+                            <div class="invalid-feedback">
+                                please enter Manufacturing date
+                                <span class="calender-caret"></span>
                             </div>
-                            <!-- <div class="form-group col-sm-6 mb-2">
+                        </div>
+                        <!-- <div class="form-group col-sm-6 mb-2">
                                 <label>Manufacturing date</label>
                                 <input class="form-control" type="date" style="text-transform:uppercase" ng-model="incharge.manufacturing_date" required>
                                 <div class="invalid-feedback">
                                     please enter Manufacturing date
                                 </div>
                             </div> -->
-                            <div class="form-group col-sm-6 mb-2">
-                                <label>CPU</label>
-                                <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.cpu" required>
-                                <div class="invalid-feedback">
-                                    please enter CPU
-                                </div>
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>CPU</label>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.cpu" required>
+                            <div class="invalid-feedback">
+                                please enter CPU
                             </div>
                         </div>
-                        <div class="row">
-                            
-                           
-                            <div class="form-group col-sm-6 mb-2">
-                                <label>Battery</label>
-                                <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.battery" required>
-                                <div class="invalid-feedback">
-                                    please enter Battery
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-6 mb-2">
-                                <label>colours</label>
-                                <input class="form-control" type="text" style="text-transform:uppercase" ng-model="incharge.colours" required>
-                                <div class="invalid-feedback">
-                                    please enter Colours
-                                </div>
+                    </div>
+                    <div class="row">
+
+
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>Battery(in mAh)</label>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.battery" required>
+                            <div class="invalid-feedback">
+                                please enter Battery
                             </div>
                         </div>
-    
-    
+                        <div class="form-group col-sm-6 mb-2">
+                            <label>colours</label>
+                            <input class="form-control" type="text" style="text-transform:uppercase"
+                                ng-model="incharge.colours" required>
+                            <div class="invalid-feedback">
+                                please enter Colours
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" ng-click="closeModal('update_laptop','updatelaptop')">Close</button>
+                <button type="button" class="btn btn-secondary"
+                    ng-click="closeModal('update_laptop','updatelaptop')">Close</button>
                 <button type="button" class="btn btn-primary" ng-click="update(laptop)">
                     <i class="fas fa-save mr-2"></i>update
                 </button>

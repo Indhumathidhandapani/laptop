@@ -18,8 +18,8 @@ function updateLaptop(data, callback) {
         _id : mongodb.ObjectID(data._id)
     };
     var detailsToUpdate = {
+        brandname : data.brandname,
         model: data.model,
-        picture : data.picture,
         screensize: data.screensize,
         price: data.price,
         ram : data.ram,
@@ -28,6 +28,7 @@ function updateLaptop(data, callback) {
         cpu : data.cpu,
         battery: data.battery,
         colours: data.colours
+      
        
     };
     laptopDao.update(query, detailsToUpdate, callback);

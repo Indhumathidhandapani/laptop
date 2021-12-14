@@ -1,3 +1,5 @@
+
+
 (function () {
     'use strict';
     var myApp = angular.module('ies');
@@ -13,24 +15,25 @@
             $scope.incharge = {};
             bootstrapError.hideErrors(id);
         }
-        $scope.closeModal = function (model, form) {
+        $scope.closeModal = function (brandname, form) {
             $scope.hideErrors(form);
-            $('#' + model).modal('hide');
+            $('#' + brandname).modal('hide');
         }
         function getlaptop() {
             laptopServices.getlaptop(function (err, res) {
                 if (!err) {
                     $scope.laptop = res;
                     $scope.showAll = true;  
+                    $scope.showBrandTable = false; 
                 }
             });
         }
        
         getlaptop();
-        // $scope.getData = function () {
-        //     var filterData = $filter('filter')($scope.laptop, $scope.page.q);
-        //     return filterData
-        // }
+        $scope.getData = function () {
+            var filterData = $filter('filter')($scope.laptop, $scope.page.q);
+            return filterData
+        }
         $scope.numberOfPages = function () {
             var data = $scope.getData();
             return Math.ceil(data.length / $scope.page.pageSize);
@@ -53,12 +56,12 @@
         $scope.firstPage = function () {
             $scope.page.currentPage = 0;
         }
-        $scope.loadInfo = function (info) {
-            $scope.update = JSON.parse(JSON.stringify(info));
+        $scope.load= function (info) {
+            $scope.incharge = JSON.parse(JSON.stringify(info));
             $scope.model = info.model;
         };
         $scope.brand =function(){
-           var query={groupby:"model"}
+           var query={groupby:"brandname"}
             laptopServices.aggregate(query,function(err,res){
                 if(!err)
                 {
@@ -75,10 +78,11 @@
                      $scope.showAll = true;  
         }
         $scope.add = function () {
+            $scope.showAll = true;  
             var form = document.getElementById('addlaptop');
             var check = form.checkValidity();
             if (check === true) {
-                // $scope.incharge.picture = ($scope.incharge.picture);
+                
                 //  $scope.incharge.model = ($scope.incharge.model);
                 // $scope.incharge.email = ($scope.incharge.email).toLowerCase();
                 laptopServices.addlaptop($scope.incharge, function (err, res) {
@@ -108,30 +112,32 @@
                 bootstrapError.showErrors('addlaptop')
             }
         };
-        $scope.load=function(lap)
-        {
-            $scope.incharge._id=lap._id;
-            $scope.incharge.picture = (lap.picture);
-            $scope.incharge.model = (lap.model);
-            $scope.incharge.screensize= (lap.screensize);
-            $scope.incharge.price=(lap.price);
-            $scope.incharge.ram=(lap.ram);
-            $scope.incharge.warrenty=(lap.warrenty);
-            $scope.incharge.manufacturing_date=(lap.manufacturing_date);
-            $scope.incharge.cpu=(lap.cpu);   
-            $scope.incharge.battery=(lap.battery);         
-            $scope.incharge.colours=(lap.colours);
+        // $scope.load=function(lap)
+        // {
+        //     $scope.incharge._id=lap._id;
+        //     $scope.incharge.brandname = lap.brandname;
+        //     $scope.incharge.model = lap.model;
+        //     $scope.incharge.screensize= lap.screensize;
+        //     $scope.incharge.price=lap.price;
+        //     $scope.incharge.ram=lap.ram;
+        //     $scope.incharge.warrenty=lap.warrenty;
+        //     $scope.incharge.manufacturing_date=lap.manufacturing_date;
+        //     $scope.incharge.cpu=lap.cpu;   
+        //     $scope.incharge.battery=lap.battery;         
+        //     $scope.incharge.colours=lap.colours;
 
+           
                 
-                
-        }
+        // }
         $scope.update = function() {
             
                 laptopServices.updatelaptop($scope.incharge, function (err, res) {
+                   
                     if(!err)
                     {
-                    getlaptop();
+                  
                         $("html").stop().animate({ scrollTop: 0 }, 200);
+                        getlaptop();
                         $scope.success = true;
                         $scope.successMsg = "Successfully Updated";
                         $('#update_laptop').modal("hide");
@@ -140,6 +146,15 @@
                             $scope.successMsg = "";
                         }, 2000);
                        
+                    }
+                    else {
+                        $("html").stop().animate({ scrollTop: 0 }, 200);
+                        $scope.error = true;
+                        $scope.errorMsg = (err.data && err.data.message) ? err.data.message : err.statusText;
+                        $timeout(function () {
+                            $scope.error = false;
+                            $scope.errorMsg = "";
+                        }, 2000);
                     }
                    
                     })
@@ -158,6 +173,15 @@
                 }, 2000);
                
                 }
+                else {
+                    $("html").stop().animate({ scrollTop: 0 }, 200);
+                    $scope.error = true;
+                    $scope.errorMsg = (err.data && err.data.message) ? err.data.message : err.statusText;
+                    $timeout(function () {
+                        $scope.error = false;
+                        $scope.errorMsg = "";
+                    }, 2000);
+                }
     })
     }
 }
@@ -170,7 +194,7 @@
     function laptopServices($http) {
         this.getlaptop = function (callback) {
             var request = {
-                url: "laptop/getLaptopDetails",
+                url: "laptop/",
                 method: 'GET',
                 timeout: 2 * 60 * 1000,
                 headers: { 'Content-type': 'application/json' }
@@ -183,8 +207,8 @@
         };
         this.updatelaptop = function (details, callback) {
             var request = {
-                url: "laptop/updatelaptop",
-                method: 'POST',
+                url: "laptop/",
+                method: 'PUT',
                 data: details,
                 timeout: 2 * 60 * 1000,
                 headers: { 'Content-type': 'application/json' }
@@ -197,7 +221,7 @@
         };
         this.addlaptop = function (details, callback) {
             var request = {
-                url: "laptop/addlaptop",
+                url: "laptop/",
                 method: 'POST',
                 data: details,
                 timeout: 2 * 60 * 1000,
@@ -211,7 +235,7 @@
         };
         this.delete = function (details, callback) {
             var request = {
-                url: "laptop/deletelaptop",
+                url: "laptop/",
                 method: 'DELETE',
                 data: details,
                 timeout: 2 * 60 * 1000,
@@ -225,7 +249,7 @@
         };
         this.aggregate = function (details, callback) {
             var request = {
-                url: "laptop/brandlaptop",
+                url: "laptop/aggregatebrands",
                 method: 'POST',
                 data: details,
                 timeout: 2 * 60 * 1000,
