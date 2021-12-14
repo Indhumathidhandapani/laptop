@@ -33,17 +33,15 @@ function updateLaptop(data, callback) {
     };
     laptopDao.update(query, detailsToUpdate, callback);
 }
-function aggregate(filterQuery, callback) {
+function aggregate(callback) {
     let arr=[];
-
-    if (filterQuery.groupby) {
         arr.push({
             $group: {
-                _id: "$" + filterQuery.groupby,
+                _id:{brandname:"$brandname",model:"$model"},
                 count: { $sum: 1 }
             }
         })
-    }
+    
 
     laptopDao.aggregate(arr, callback);
 }

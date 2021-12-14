@@ -196,13 +196,15 @@
 
                         <tr>
                             <th>Brand</th>
+                            <th>Model</th>
                             <th>Count</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
                             ng-repeat="v in values | filter:page.searchBox | startFrom: page.currentPage*page.pageSize | limitTo:page.pageSize">
-                            <td data-title="Brand">{{v._id}}</td>
+                            <td data-title="Brand">{{v._id.brandname}}</td>
+                            <td data-title="Model">{{v._id.model}}</td>
                             <td data-title="Count">{{v.count}}</td>
 
                             </td>

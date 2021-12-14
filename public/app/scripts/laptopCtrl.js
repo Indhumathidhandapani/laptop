@@ -61,8 +61,8 @@
             $scope.model = info.model;
         };
         $scope.brand =function(){
-           var query={groupby:"brandname"}
-            laptopServices.aggregate(query,function(err,res){
+          
+            laptopServices.aggregate(function(err,res){
                 if(!err)
                 {
                     $scope.values =res;
@@ -247,11 +247,11 @@
                 callback(error, null);
             });
         };
-        this.aggregate = function (details, callback) {
+        this.aggregate = function (callback) {
             var request = {
                 url: "laptop/aggregatebrands",
-                method: 'POST',
-                data: details,
+                method: 'GET',
+
                 timeout: 2 * 60 * 1000,
                 headers: { 'Content-type': 'application/json' }
             };

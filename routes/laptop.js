@@ -44,8 +44,8 @@ router.put('/', function (req, res, next) {
     });
    
 });
-router.post('/aggregatebrands', function (req, res, next) {
-    laptopServices.aggregate(req.body,function (err, response) {
+router.get('/aggregatebrands', function (req, res, next) {
+    laptopServices.aggregate(function (err, response) {
         if (!err) {
             appLogger.info("success");
             res.send(response);
